@@ -2,6 +2,9 @@
 
 <h1>Film Listesi</h1>
 
+
+
+
 <div id="filmler">
 
 
@@ -27,9 +30,9 @@
 @if (TempData["Message"] != null)
 {
     @section message
- {
+    {
     @* @await Html.PartialAsync("_menu",Model.Genres) *@
-    @await Component.InvokeAsync("_message", (string)TempData["Message"]);
+    @await Component.InvokeAsync("_message", (string) TempData["Message"]);
     }
 }
 

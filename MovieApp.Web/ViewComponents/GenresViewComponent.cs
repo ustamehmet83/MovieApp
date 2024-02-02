@@ -6,7 +6,7 @@ namespace MovieApp.Web.ViewComponents
 
 
 {
-    [ViewComponent(Name = "GenresViewComponent")]
+    //[ViewComponent(Name = "GenresViewComponent")]
     public class GenresViewComponent : ViewComponent
     {
 

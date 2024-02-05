@@ -184,23 +184,7 @@ namespace MovieApp.Web.Data
                     context.Crews.AddRange(crews);
                 }
 
-
-
-
-
-
-
-
-
-
-
-
                 context.SaveChanges();
-
-
-
-
-
             }
 
 

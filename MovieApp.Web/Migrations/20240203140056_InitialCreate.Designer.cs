@@ -11,8 +11,8 @@ using MovieApp.Web.Data;
 namespace MovieApp.Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240131071257_ManyToManyRelation2")]
-    partial class ManyToManyRelation2
+    [Migration("20240203140056_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace MovieApp.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.Property<int>("GenresGenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoviesMovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenresGenreId", "MoviesMovieId");
+
+                    b.HasIndex("MoviesMovieId");
+
+                    b.ToTable("GenreMovie");
+                });
 
             modelBuilder.Entity("MovieApp.Web.Entity.Cast", b =>
                 {
@@ -107,9 +122,6 @@ namespace MovieApp.Web.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -118,8 +130,6 @@ namespace MovieApp.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MovieId");
-
-                    b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
                 });
@@ -186,6 +196,21 @@ namespace MovieApp.Web.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.HasOne("MovieApp.Web.Entity.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresGenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApp.Web.Entity.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesMovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MovieApp.Web.Entity.Cast", b =>
                 {
                     b.HasOne("MovieApp.Web.Entity.Movie", "Movie")
@@ -224,17 +249,6 @@ namespace MovieApp.Web.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("MovieApp.Web.Entity.Movie", b =>
-                {
-                    b.HasOne("MovieApp.Web.Entity.Genre", "Genre")
-                        .WithMany("Movies")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-                });
-
             modelBuilder.Entity("MovieApp.Web.Entity.Person", b =>
                 {
                     b.HasOne("MovieApp.Web.Entity.User", "User")
@@ -244,11 +258,6 @@ namespace MovieApp.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MovieApp.Web.Entity.Genre", b =>
-                {
-                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("MovieApp.Web.Entity.User", b =>

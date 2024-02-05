@@ -41,7 +41,7 @@ namespace MovieApp.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //DataSeeding.Seed(app);
+                DataSeeding.Seed(app);
             }
 
             app.UseStaticFiles();

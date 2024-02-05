@@ -8,7 +8,7 @@ namespace MovieApp.Web.Entity
         //primary key=>Id,<TypeName>Id
        
         public int MovieId { get; set; }
-        [Required]
+        
         public string Title { get; set; }
         [MaxLength(500)]
         public string Description { get; set; }

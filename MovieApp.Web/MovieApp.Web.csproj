@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
 	  <Platforms>AnyCPU;x64;ARM32;ARM64</Platforms>
-	  <OutputType>Exe</OutputType>
+	  <OutputType>WinExe</OutputType>
+	  <StartupObject>MovieApp.Web.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

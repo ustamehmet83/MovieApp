@@ -23,5 +23,30 @@ namespace MovieApp.Web.Data
         //{
         //    optionsBuilder.UseSqlite("Data Source=movies.db");
         //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>().Property(b => b.Title).IsRequired();
+            modelBuilder.Entity<Movie>().Property(b => b.Title).HasMaxLength(50);
+
+            modelBuilder.Entity<Genre>().Property(b => b.Name).IsRequired();
+            modelBuilder.Entity<Genre>().Property(b => b.Name).HasMaxLength(50);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

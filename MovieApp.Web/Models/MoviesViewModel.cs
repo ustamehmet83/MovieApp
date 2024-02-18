@@ -1,16 +1,15 @@
 ﻿using MovieApp.Web.Entity;
 using System.Collections.Generic;
 
-namespace MovieApp.Web.Models
+namespace MovieApp.Web.Models;
+
+public class MoviesViewModel
 {
-    public class MoviesViewModel
-    {
 
-        public List<Movie> Movies { get; set; }
-       
+    public List<Movie> Movies { get; set; }
+   
 
 
 
 
-    }
 }

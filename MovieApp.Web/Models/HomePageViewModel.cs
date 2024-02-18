@@ -1,11 +1,10 @@
 ﻿using MovieApp.Web.Entity;
 using System.Collections.Generic;
 
-namespace MovieApp.Web.Models
-{
-    public class HomePageViewModel
-    {
+namespace MovieApp.Web.Models;
 
-        public List<Movie> PopularMovies { get; set; }
-    }
+public class HomePageViewModel
+{
+
+    public List<Movie> PopularMovies { get; set; }
 }

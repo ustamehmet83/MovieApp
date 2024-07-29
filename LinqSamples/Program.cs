@@ -6,7 +6,7 @@ namespace LINQSamples
     class ProductModel
     {
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public decimal? Price { get; set; }
 
 
@@ -56,8 +56,8 @@ namespace LINQSamples
 
                 // "Diego Roel" isimli müşteri nerede yaşamaktadır.
 
-                var customer4 = db.Customers.Select(c => new { c.ContactName, c.Country }).Where(c => c.ContactName == "Diego Roel").FirstOrDefault();
-                Console.WriteLine(customer4.ContactName + ' ' + customer4.Country);
+                //var customer4 = db.Customers.Select(c => new { c.ContactName, c.Country }).Where(c => c.ContactName == "Diego Roel").FirstOrDefault();
+                //Console.WriteLine(customer4.ContactName + ' ' + customer4.Country);
 
                 // Stokta olmayan ürünler hangileridir?
 

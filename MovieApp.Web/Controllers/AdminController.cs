@@ -113,7 +113,7 @@ public class AdminController : Controller
             return NotFound();
         }
 
-        var entity = _context.Genres.Select(m => new AdminEditGenreViewModel
+        var entity = _context.Genres.Select(m => new AdminGenreEditViewModel
 
         {
             GenreId = m.GenreId,
@@ -132,7 +132,105 @@ public class AdminController : Controller
         return View(entity);
     }
 
+    [HttpPost]
 
+    public IActionResult GenreUpdate(AdminGenreEditViewModel model, int[] movieIds)
+    {
+
+        var entity = _context.Genres.Include("Movies").FirstOrDefault(i => i.GenreId == model.GenreId);
+
+        if (entity == null)
+        {
+
+            return NotFound();
+        }
+
+
+        entity.Name = model.Name;
+
+        foreach (var id in movieIds)
+        {
+
+            entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.MovieId == id));
+
+
+        }
+
+        _context.SaveChanges();
+
+        return RedirectToAction("GenreList");
+
+
+
+    }
+
+
+    [HttpPost]
+    public IActionResult GenreDelete(int genreId)
+    {
+        var entity = _context.Genres.Find(genreId);
+
+        if (entity != null)
+        {
+            _context.Genres.Remove(entity);
+        }
+        _context.SaveChanges();
+
+        return RedirectToAction("GenreList");
+    }
+
+    [HttpPost]
+    public IActionResult MovieDelete(int movieId)
+    {
+        var entity = _context.Movies.Find(movieId);
+
+        if (entity != null)
+        {
+            _context.Movies.Remove(entity);
+        }
+        _context.SaveChanges();
+
+        return RedirectToAction("MovieList");
+    }
+
+    public IActionResult MovieCreate()
+    {
+
+        ViewBag.Genres = _context.Genres.ToList();
+
+        return View();
+
+
+    }
+
+    [HttpPost]
+    public IActionResult MovieCreate(AdminCreateMovieModel model, int[] genreIds)
+    {
+        if (ModelState.IsValid)
+        {
+
+            var entity = new Movie
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ImageUrl = "no-image.png"
+            };
+            
+
+            foreach (var id in genreIds)
+            {
+                entity.Genres.Add(_context.Genres.FirstOrDefault(i => i.GenreId == id));
+            }
+            _context.Movies.Add(entity);
+            _context.SaveChanges();
+            return RedirectToAction("MovieList", "Admin");
+        }
+        ViewBag.Genres = _context.Genres.ToList();
+
+        return View();
+
+
+    }
 
 
 

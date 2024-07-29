@@ -21,5 +21,5 @@ public class AdminGenreEditViewModel
 {
     public int GenreId { get; set; }
     public string Name { get; set; }
-    public List<Movies> AdminMovieViewModel { get; set; }
+    public List<AdminMovieViewModel>  Movies{ get; set; }
 }
